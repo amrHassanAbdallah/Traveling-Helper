@@ -1,5 +1,4 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { nextTick } from 'process';
 import NotFoundURLError from './errors/NotFoundURLError';
 import errorMiddleware from './middlewares/ErrorMiddleware';
 const app = express();
@@ -37,13 +36,9 @@ const locations: LocationWithTimezone[] = [
     utcOffset: 9,
   },
 ];
-app.get(
-  '/api/v1/timezones',
-  (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ data: locations });
-    next();
-  }
-);
+app.get('/api/v1/timezones', (req: Request, res: Response) => {
+  return res.status(200).json({ data: locations });
+});
 app.use((req: Request, res: Response, next: NextFunction) => {
   const err = new NotFoundURLError();
   next(err);
