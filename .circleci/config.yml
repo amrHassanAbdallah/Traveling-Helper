@@ -34,7 +34,10 @@ jobs:
           command: |
             npm run test
 
-    deploy:
+  deploy:
+    docker:
+      - image: "cimg/node:14.15.5"
+    steps:
       - run:
           name: Deploy  App
           command: |
