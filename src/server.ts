@@ -1,52 +1,17 @@
 import express, { NextFunction, Request, Response } from 'express';
 import NotFoundURLError from './errors/NotFoundURLError';
 import errorMiddleware from './middlewares/ErrorMiddleware';
+import config from './config';
+import { Loader } from './loaders';
+
 const app = express();
-const port = process.env.PORT || 8000;
 
-interface LocationWithTimezone {
-  location: string;
-  timezoneName: string;
-  timezoneAbbr: string;
-  utcOffset: number;
+async function startServer() {
+  await new Loader().init({ app });
+  app.listen(config.port, () => {
+    console.log(`Application is working on port${config.port}`);
+  });
 }
-const locations: LocationWithTimezone[] = [
-  {
-    location: 'Germany',
-    timezoneName: 'Central European Time',
-    timezoneAbbr: 'CET',
-    utcOffset: 1,
-  },
-  {
-    location: 'China',
-    timezoneName: 'China Standard Time',
-    timezoneAbbr: 'CST',
-    utcOffset: 8,
-  },
-  {
-    location: 'Argentina',
-    timezoneName: 'Argentina Time',
-    timezoneAbbr: 'ART',
-    utcOffset: -3,
-  },
-  {
-    location: 'Japan',
-    timezoneName: 'Japan Standard Time',
-    timezoneAbbr: 'JST',
-    utcOffset: 9,
-  },
-];
-app.get('/api/v1/timezones', (req: Request, res: Response) => {
-  return res.status(200).json({ data: locations });
-});
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const err = new NotFoundURLError();
-  next(err);
-});
-app.use(errorMiddleware);
-
-app.listen(port, () => {
-  console.log(`Application is working on port${port}`);
-});
+startServer();
 
 export { app };
