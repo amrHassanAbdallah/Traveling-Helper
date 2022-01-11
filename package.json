@@ -10,7 +10,8 @@
     "serve": "nodemon src/server.ts",
     "format": "prettier --config .prettierrc.js 'src/**/*.ts' --write",
     "check": "eslint --ext .ts .",
-    "deploy": "echo 'deployed!'"
+    "deploy": "echo 'deployed!'",
+    "migrate": "npx db-migrate up"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
-import { Pool, PoolClient } from 'pg';
+import { Pool } from 'pg';
 import config from '../config';
 
-class Postgres_client {
+export default class PostgresClient {
   static connection: Pool;
 
   static async connect() {
@@ -18,6 +18,6 @@ class Postgres_client {
         idleTimeoutMillis: 5000,
       });
     }
-    return await this.connection.connect();
+    return this.connection.connect();
   }
 }

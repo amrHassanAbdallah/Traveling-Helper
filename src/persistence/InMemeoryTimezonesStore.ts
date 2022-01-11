@@ -1,4 +1,4 @@
-import TimezonesStore from './types';
+import { TimezonesStore } from './types';
 
 export interface LocationWithTimezone {
   location: string;

@@ -11,6 +11,9 @@ if (envFound.error) {
   throw new Error('env file not found');
 }
 console.log(process.env.NODE_ENV);
+console.log(process.env.POSTGRES_DB);
+console.log(envFilePath);
+
 export default {
   port: process.env.PORT || 8000,
   DB: {
