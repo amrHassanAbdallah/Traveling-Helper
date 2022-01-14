@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/amrHassanAbdallah/Traveling-Helper/tree/master.svg?style=svg)](https://circleci.com/gh/amrHassanAbdallah/Traveling-Helper/tree/master)
 
 # Travel Helper
 
