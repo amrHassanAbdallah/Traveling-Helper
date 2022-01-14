@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: env-config
 data:
-  POSTGRES_HOST: "database-1.cmcgko71bxwg.us-east-1.rds.amazonaws.com"
+  POSTGRES_HOST: "postgres.default.svc"
   POSTGRES_DB: "postgres"
