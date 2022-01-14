@@ -1,6 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
-import NotFoundURLError from './errors/NotFoundURLError';
-import errorMiddleware from './middlewares/ErrorMiddleware';
+import express from 'express';
 import config from './config';
 import { Loader } from './loaders';
 
@@ -10,8 +8,10 @@ async function startServer() {
   await new Loader().init({ app });
   app.listen(config.port, () => {
     console.log(`Application is working on port${config.port}`);
+    app.emit('app-started');
   });
 }
+
 startServer();
 
 export { app };

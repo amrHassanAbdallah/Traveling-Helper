@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import TimezonesStore from '../../../persistence/types';
+import { TimezonesStore } from '../../../persistence/types';
 
 const route = Router();
 

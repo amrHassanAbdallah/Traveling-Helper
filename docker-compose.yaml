@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgis/postgis
+    ports:
+      - '127.0.0.1:5432:5432'
+    env_file:
+      - .env
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    network_mode: "host"
+  api:
+    build:
+      context: .
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    ports:
+      - '127.0.0.1:8000:8000'
+    network_mode: "host"
+volumes:
+  postgres:
