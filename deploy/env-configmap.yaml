@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+data:
+  POSTGRES_HOST: "database-1.cmcgko71bxwg.us-east-1.rds.amazonaws.com"
+  POSTGRES_DB: "postgres"

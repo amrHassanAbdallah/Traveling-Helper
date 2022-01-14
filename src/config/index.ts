@@ -5,11 +5,13 @@ let envFilePath = '.env';
 if (process.env.NODE_ENV == 'testing') {
   envFilePath = '.env_testing';
 }
-
-const envFound = dotenv.config({ path: envFilePath });
-if (envFound.error) {
-  throw new Error('env file not found');
+if (process.env.NODE_ENV != 'production') {
+  const envFound = dotenv.config({ path: envFilePath });
+  if (envFound.error) {
+    throw new Error('env file not found');
+  }
 }
+
 console.log(process.env.NODE_ENV);
 console.log(process.env.POSTGRES_DB);
 console.log(envFilePath);
