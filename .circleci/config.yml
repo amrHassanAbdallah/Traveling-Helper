@@ -56,6 +56,9 @@ jobs:
     steps:
       - attach_workspace:
           at: /home/circleci/project
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
       - run:
           name: Deploy  App
           command: |
