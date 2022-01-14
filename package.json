@@ -11,7 +11,8 @@
     "format": "prettier --config .prettierrc.js 'src/**/*.ts' --write",
     "check": "eslint --ext .ts .",
     "deploy": "echo 'deployed!'",
-    "migrate": "npx db-migrate up"
+    "migrate": "npx db-migrate up",
+    "prod": "node ./dist/server.js"
   },
   "keywords": [],
   "author": "",

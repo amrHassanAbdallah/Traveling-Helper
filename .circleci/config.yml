@@ -20,8 +20,8 @@ jobs:
             - "./*"
 
   test:
-    docker:
-      - image: "cimg/node:14.15.5"
+    machine:
+      image: ubuntu-1604:202007-01
     steps:
       - attach_workspace:
           at: /home/circleci/project
@@ -30,9 +30,25 @@ jobs:
           command: |
             npm run check
       - run:
+          name: Run postgres instance
+          command: |
+            export $(grep -v '^#' .env_testing | xargs)
+            docker run  --network host  -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB postgis/postgis:12-3.2-alpine
+          background: true
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for db
+          command: |
+            dockerize -wait tcp://localhost:5432 -timeout 2m
+      - run:
           name: Run test cases
           command: |
             npm run test
+
 
   deploy:
     docker:
@@ -44,6 +60,9 @@ jobs:
           name: Deploy  App
           command: |
             npm run deploy
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker build -t amrhassanabdullah/travaling-helper:latest ../
+            docker push amrhassanabdullah/travaling-helper:latest
 
 workflows:
   version: 2
