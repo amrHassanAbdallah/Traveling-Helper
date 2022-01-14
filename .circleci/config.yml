@@ -61,7 +61,7 @@ jobs:
           command: |
             npm run deploy
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker build -t amrhassanabdullah/travaling-helper:latest ../
+            docker build -t amrhassanabdullah/travaling-helper:latest .
             docker push amrhassanabdullah/travaling-helper:latest
 
 workflows:
