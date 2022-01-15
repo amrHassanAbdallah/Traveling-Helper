@@ -1,6 +1,6 @@
 import { Application, NextFunction, Request, Response } from 'express';
 import NotFoundURLError from '../errors/NotFoundURLError';
-import errorMiddleware from '../middlewares/ErrorMiddleware';
+import errorMiddleware from '../api/middlewares/ErrorMiddleware';
 import routes from '../api/v1/';
 
 export default ({ app }: { app: Application }) => {

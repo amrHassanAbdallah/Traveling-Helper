@@ -24,4 +24,5 @@ export default {
     PASSWORD: process.env.POSTGRES_PASSWORD,
     NAME: process.env.POSTGRES_DB,
   },
+  JWK_URL: process.env.JWK_URL,
 };

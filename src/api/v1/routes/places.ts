@@ -9,6 +9,7 @@ export interface CreatePlacePayload {
   name: string;
   location: string;
 }
+
 export default (app: Router, placesStore: PlacesStore) => {
   app.use('/places', route);
   route.get('/', async (req: Request, res: Response) => {
