@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import LoggerInstance from '../loaders/logger';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 let envFilePath = '.env';
@@ -12,9 +13,10 @@ if (process.env.NODE_ENV != 'production') {
   }
 }
 
-console.log(process.env.NODE_ENV);
-console.log(process.env.POSTGRES_DB);
-console.log(envFilePath);
+LoggerInstance.debug(process.env.NODE_ENV);
+LoggerInstance.debug(process.env.POSTGRES_DB);
+LoggerInstance.debug(process.env.DB_PORT);
+LoggerInstance.debug(envFilePath);
 
 export default {
   port: process.env.PORT || 8000,
@@ -23,5 +25,7 @@ export default {
     USERNAME: process.env.POSTGRES_USERNAME,
     PASSWORD: process.env.POSTGRES_PASSWORD,
     NAME: process.env.POSTGRES_DB,
+    PORT: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
   },
+  application_name: 'travling-helper',
 };

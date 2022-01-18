@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import HttpError from '../errors/HttpError';
+import HttpError from '../../errors/HttpError';
+import LoggerInstance from '../../loaders/logger';
 
 function errorMiddleware(
   error: Error | HttpError,
@@ -7,7 +8,7 @@ function errorMiddleware(
   res: Response,
   next: NextFunction
 ) {
-  console.log(error);
+  LoggerInstance.error(error);
   const status = error instanceof HttpError ? error.status : 500;
   const message =
     error instanceof HttpError && error.status != 500
